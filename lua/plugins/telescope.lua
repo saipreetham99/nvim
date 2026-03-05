@@ -1,12 +1,29 @@
 return {
   "nvim-telescope/telescope.nvim",
-  tag = "0.1.8",
-  -- or                              , branch = '0.1.x',
+  branch = "0.1.x",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    -- { "nvim-telescope/telescope-fzf-native.ncim", build = "make" },
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
   },
-  config = function()
-    print("telescope")
+  opts = function(_, opts)
+    local actions = require("telescope.actions")
+
+    opts.defaults = opts.defaults or {}
+    opts.defaults.mappings = opts.defaults.mappings or {}
+    opts.defaults.mappings.i = opts.defaults.mappings.i or {}
+    opts.defaults.mappings.n = opts.defaults.mappings.n or {}
+
+    opts.defaults.mappings.i["<C-s>"] = actions.select_horizontal
+    opts.defaults.mappings.i["<C-v>"] = actions.select_vertical
+
+    opts.defaults.mappings.n["<C-s>"] = actions.select_horizontal
+    opts.defaults.mappings.n["<C-v>"] = actions.select_vertical
+
+    return opts
+  end,
+  config = function(_, opts)
+    local telescope = require("telescope")
+    telescope.setup(opts)
+    pcall(telescope.load_extension, "fzf")
   end,
 }

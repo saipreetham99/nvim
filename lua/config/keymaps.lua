@@ -6,3 +6,4 @@
 --
 -- vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste from clipboard" })
 -- vim.keymap.set("v", "<leader>p", '"+p', { desc = "Paste from clipboard" })
+-- Custom save commands (safe: doesn't mess with built-in :e)
